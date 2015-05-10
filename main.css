@@ -1,1 +1,26 @@
 /* Style Sheet */
+h1 {
+	text-align: center;
+}
+
+#board-container{
+	width: 450px;
+	height: 450px;
+	margin: 20px auto;
+}
+
+.box {
+	width: 120px;
+	height: 120px;
+	border: 1px solid #ccc;
+	margin: 0 5px 5px 0;
+	display: inline-block;
+}
+
+.xBox {
+	background-color: red;
+}
+
+.oBox {
+	background-color: blue;
+}

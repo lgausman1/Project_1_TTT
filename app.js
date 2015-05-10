@@ -1,43 +1,76 @@
-// OOP Tic Tac Toe boilerplate code
+$(document).ready(function() {
 
-// Execute this code only AFTER the document is ready
-// Hint: use jQuery's `$(document).ready`
-
-  function Game() {
-    //Create a new instance of player 1
-    //this.player1 = ...
-
-    //Do the same for a player 2
-    //this.player2 = ...
-    
+    function Game() {
     //Create the board
-    //this.board = ...
-  }
+    //var self = this;
+    this.board = new Board();
+ 
+    //Create a new instance of player 1
+    this.player1 = new Player("x");
+    
+    //Do the same for a player 2
+    this.player2 = new Player("o");
 
-  // Remember: prototypes are shared functions between all game instances
-  Game.prototype.nextPlayer = function() {
-    //Switch players
-  };
+    var turncount = this.turncount;
+    this.turncount = 0;
 
-  // `Game.prototype.init` kicks off a new game with a board and two players
-  Game.prototype.init = function() {
-    //
-  };
 
-  // A starter Player constructor.
-  function Player(team) {
-    //Is the player X or O?
-    //this.team = ...
-  };
+    console.log(this.turncount); //0
+ 
+    };
+    
+    Game.prototype.play = function(){
 
-  // A starter Board constructor.
-  function Board() {
-    //Tracks the cells of the board instance
-    //this.$cells = ...
+      var _this = this;
 
-    //Store any other properties that board may have below, such as a reset option
-  };
+        // on click
+            // this.turncount += 1
+            // if (this.turncount % 2 === 0)
+                // this.move(player)
+                // evaluate if player has a winning combo
+                // this.player1.wins += 1;
 
-  // Start the game!
-  var game = new Game();
-  game.init();
+
+      this.board.cells.on('click', function() {
+        //alert('clicked');
+        
+        if(_this.turncount % 2 === 0 && $(this).hasClass('open')) {
+          $(this).html('X').addClass('xBox').removeClass('open');
+          console.log($(this).attr('id'));
+          // evalue win
+
+        } else if(_this.turncount % 2 !== 0 && $(this).hasClass('open')) {
+          $(this).html('O').addClass('oBox').removeClass('open');
+          //console.log("O marks the spot");
+          // evaluate win
+
+        } else {
+          console.log("error");
+        }
+
+        _this.turncount += 1;
+        //console.log(_this.turncount); 
+                
+      }); // end on click
+      
+        
+    };
+    
+    // A starter Player constructor.
+    function Player(team) {
+        this.team = team;
+        this.wins = 0;
+    };
+    
+    // A starter Board constructor.
+    function Board() {
+        this.cells = $('#board-container .box');
+        this.cells.addClass('open');
+    };
+    
+    
+    var game = new Game();
+    
+    game.play();
+    
+});  // end doc ready
