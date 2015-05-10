@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
     function Game() {
     //Create the board
     //var self = this;
@@ -23,33 +24,73 @@ $(document).ready(function() {
 
       var _this = this;
 
-        // on click
-            // this.turncount += 1
-            // if (this.turncount % 2 === 0)
-                // this.move(player)
-                // evaluate if player has a winning combo
-                // this.player1.wins += 1;
+      function rowWinner(player) {
+        if($('#a-1').hasClass(player) && $('#a-2').hasClass(player) && $('#a-3').hasClass(player)) {
+          console.log(player + " wins!");
+        } else if($('#b-1').hasClass(player) && $('#b-2').hasClass(player) && $('#b-3').hasClass(player)) {
+          console.log(player + " wins!");
+        } else if($('#c-1').hasClass(player) && $('#c-2').hasClass(player) && $('#c-3').hasClass(player)) {
+          console.log(player + " wins!!!");
+        } else {
+          return false;
+        }
+      }
 
+      function colWinner(player) {
+
+        if($('#a-1').hasClass(player) && $('#b-1').hasClass(player) && $('#c-1').hasClass(player)) {
+          console.log(player + " wins!");
+        } else if($('#a-2').hasClass(player) && $('#b-2').hasClass(player) && $('#c-2').hasClass(player)) {
+          console.log(player + " wins!");
+        } else if($('#a-3').hasClass(player) && $('#b-3').hasClass(player) && $('#c-3').hasClass(player)) {
+          console.log(player + " wins!!!");
+        } else {
+          return false;
+        }
+
+      }
+
+      function diagWinner(player) {
+
+        if($('#a-1').hasClass(player) && $('#b-2').hasClass(player) && $('#c-3').hasClass(player)) {
+          console.log(player + " wins!");
+        } else if($('#a-3').hasClass(player) && $('#b-2').hasClass(player) && $('#c-1').hasClass(player)) {
+          console.log(player + " wins!");
+        } else {
+          return false;
+        }
+
+      }
 
       this.board.cells.on('click', function() {
-        //alert('clicked');
-        
+      // assign turn add class, remove 'open' to prevent reclicking
         if(_this.turncount % 2 === 0 && $(this).hasClass('open')) {
           $(this).html('X').addClass('xBox').removeClass('open');
-          console.log($(this).attr('id'));
-          // evalue win
-
+          // evaluate win
+          rowWinner('xBox');
+          colWinner('xBox');
+          diagWinner('xBox');
+          
         } else if(_this.turncount % 2 !== 0 && $(this).hasClass('open')) {
           $(this).html('O').addClass('oBox').removeClass('open');
-          //console.log("O marks the spot");
-          // evaluate win
+
+          rowWinner('oBox');
+          colWinner('oBox');
+          diagWinner('oBox');
 
         } else {
           console.log("error");
         }
 
         _this.turncount += 1;
-        //console.log(_this.turncount); 
+        console.log(_this.turncount);
+        
+        // if turncount === 9 && !rowWinner || !colWinner || !diagWinner
+        // console.log("It's a tie")
+        if(_this.turncount === 9 && !rowWinner || !colWinner || !diagWinner) {
+          console.log("It's a tie");
+        }
+
                 
       }); // end on click
       
