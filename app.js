@@ -14,23 +14,21 @@ $(document).ready(function() {
 
     var turncount = this.turncount;
     this.turncount = 0;
-
-
-    console.log(this.turncount); //0
  
     };
     
     Game.prototype.play = function(){
 
       var _this = this;
+      var $gameMsgDiv = $('#game_msg');
 
       function rowWinner(player) {
         if($('#a-1').hasClass(player) && $('#a-2').hasClass(player) && $('#a-3').hasClass(player)) {
-          console.log(player + " wins!");
+          $gameMsgDiv.html(player + " wins!");
         } else if($('#b-1').hasClass(player) && $('#b-2').hasClass(player) && $('#b-3').hasClass(player)) {
-          console.log(player + " wins!");
+          $gameMsgDiv.html(player + " wins!");
         } else if($('#c-1').hasClass(player) && $('#c-2').hasClass(player) && $('#c-3').hasClass(player)) {
-          console.log(player + " wins!!!");
+          $gameMsgDiv.html(player + " wins!!!");
         } else {
           return false;
         }
@@ -39,11 +37,11 @@ $(document).ready(function() {
       function colWinner(player) {
 
         if($('#a-1').hasClass(player) && $('#b-1').hasClass(player) && $('#c-1').hasClass(player)) {
-          console.log(player + " wins!");
+          $gameMsgDiv.html(player + " wins!");
         } else if($('#a-2').hasClass(player) && $('#b-2').hasClass(player) && $('#c-2').hasClass(player)) {
-          console.log(player + " wins!");
+          $gameMsgDiv.html(player + " wins!");
         } else if($('#a-3').hasClass(player) && $('#b-3').hasClass(player) && $('#c-3').hasClass(player)) {
-          console.log(player + " wins!!!");
+          $gameMsgDiv.html(player + " wins!!!");
         } else {
           return false;
         }
@@ -53,9 +51,9 @@ $(document).ready(function() {
       function diagWinner(player) {
 
         if($('#a-1').hasClass(player) && $('#b-2').hasClass(player) && $('#c-3').hasClass(player)) {
-          console.log(player + " wins!");
+          $gameMsgDiv.html(player + " wins!");
         } else if($('#a-3').hasClass(player) && $('#b-2').hasClass(player) && $('#c-1').hasClass(player)) {
-          console.log(player + " wins!");
+          $gameMsgDiv.html(player + " wins!");
         } else {
           return false;
         }
@@ -84,17 +82,21 @@ $(document).ready(function() {
 
         _this.turncount += 1;
         console.log(_this.turncount);
-        
+
         // if turncount === 9 && !rowWinner || !colWinner || !diagWinner
         // console.log("It's a tie")
-        if(_this.turncount === 9 && !rowWinner || !colWinner || !diagWinner) {
-          console.log("It's a tie");
+        if(_this.turncount === 9) {
+          $gameMsgDiv.html("It's a tie");
         }
 
                 
       }); // end on click
       
+     $('#reset').on('click', function() {
+        $('.box').html("&nbsp;").removeClass('xBox oBox').addClass('open');
+        _this.turncount = 0;
         
+      });          
     };
     
     // A starter Player constructor.
@@ -109,6 +111,7 @@ $(document).ready(function() {
         this.cells.addClass('open');
     };
     
+
     
     var game = new Game();
     
